@@ -18,6 +18,12 @@ public class ReceiverRequest {
         return this;
     }
 
+    public ReceiverRequest primary(final TaxDocumentRequest document, final AmountRequest amountRequest, boolean feePayor) {
+        defaultAttributes(ReceiverTypeRequest.PRIMARY, document, amountRequest, feePayor);
+
+        return this;
+    }
+
     public ReceiverRequest secondary(final String moipAccount, final AmountRequest amountRequest) {
         defaultAttributes(ReceiverTypeRequest.SECONDARY, moipAccount, amountRequest, false);
 
@@ -30,11 +36,25 @@ public class ReceiverRequest {
         return this;
     }
 
+    public ReceiverRequest secondary(final TaxDocumentRequest document, final AmountRequest amountRequest, boolean feePayor) {
+        defaultAttributes(ReceiverTypeRequest.SECONDARY, document, amountRequest, feePayor);
+
+        return this;
+    }
+
+
     private void defaultAttributes(ReceiverTypeRequest receiverTypeRequest, String moipAccount, AmountRequest amountRequest, boolean feePayor) {
         this.type = receiverTypeRequest;
         this.moipAccount = new MoipAccountRequest(moipAccount);
         this.amount = amountRequest;
         this.feePayor = feePayor;
+    }
+
+    private void defaultAttributes(ReceiverTypeRequest receiverTypeRequest, TaxDocumentRequest document, AmountRequest amountRequest, boolean feePayor) {
+        this.type = receiverTypeRequest;
+        this.amount = amountRequest;
+        this.feePayor = feePayor;
+        this.moipAccount = new MoipAccountRequest(document);
     }
 
     public ReceiverTypeRequest getType() {
