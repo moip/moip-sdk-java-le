@@ -66,7 +66,9 @@ public class Customer {
         return fundingInstrument;
     }
 
-    public String getMoipAccountId() { return moipAccount.getId(); }
+    public String getMoipAccountId() { 
+        return moipAccount != null ? moipAccount.getId() : null;
+    }
 
     public CustomerLinks getLinks() { return _links; }
 
